@@ -1,0 +1,497 @@
+/* ==========================================
+   1. 基礎重設與全域設定
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "微軟正黑體";
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden; /* 徹底鎖死瀏覽器自帶的滾動條 */
+}
+
+body {
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* 🌟 滾動容器：隱藏溢出，讓滑鼠滾輪徹底失效 */
+.scroll-container {
+    height: 100vh;
+    overflow: hidden;
+    scroll-behavior: smooth;
+}
+
+/* ==========================================
+   2. 頂部導覽列 (Navbar)
+   ========================================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.nav-links a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    margin-left: 30px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-links a:hover {
+    color: #b3f0ff; 
+}
+
+/* 當前點選的分頁底線高亮 */
+.nav-links a.active {
+    color: #ffffff;
+    font-weight: bold;
+    border-bottom: 2px solid #b3f0ff;
+}
+
+/* ==========================================
+   3. 獨立分頁基礎佈局
+   ========================================== */
+.page-section {
+    height: 100vh; /* 強制每一頁剛好等於螢幕高 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 100px 20px 40px 20px;
+    overflow: hidden; /* 防止內部元件隨意長大撐開頁面 */
+}
+
+/* 通用磨砂玻璃大卡片 */
+.glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 550px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+    text-align: left;
+}
+
+.page-card {
+    max-width: 650px;
+}
+
+.glass-card h2 {
+    font-size: 28px;
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+/* 卡片下方裝飾短線 */
+.card-line {
+    width: 50px;
+    height: 3px;
+    background-color: #b3f0ff;
+    margin: 0 auto 30px auto;
+    border-radius: 2px;
+}
+
+.section-p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #f0f8ff;
+    text-align: justify;
+}
+
+/* ==========================================
+   4. 各分頁專屬細節樣式
+   ========================================== */
+
+/* --- 頁面 1：首頁 (Hero) 回歸正中間經典排版 --- */
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin-top: -40px; /* 稍微往上微調，視覺比例在螢幕正中間最完美 */
+}
+
+.hero-content h1 {
+    color: #ffffff !important; /* 強制文字為白 */
+    font-size: 52px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    /* 精緻高雅的文字發光效果，在任何底圖上都極清晰 */
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.4), 0 2px 15px rgba(0, 0, 0, 0.6) !important;
+}
+
+.hero-content p {
+    color: #e2e8f0 !important; /* 質感柔白副標題 */
+    font-size: 20px;
+    font-weight: 300;
+    max-width: 600px;
+    margin: 0 auto;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* --- 頁面 2：關於我們 匠人聲明 --- */
+.solo-notice {
+    margin-top: 25px;
+    padding: 15px 20px;
+    background: rgba(179, 240, 255, 0.05);
+    border-left: 4px solid #b3f0ff;
+    border-radius: 0 10px 10px 0;
+    color: #e0f7ff;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.solo-notice strong {
+    color: #b3f0ff;
+    display: inline-block;
+    margin-bottom: 3px;
+}
+
+/* --- 🌟 頁面 3：成品預覽（獨立滾動解鎖版） --- */
+.portfolio-section {
+    padding: 90px 0 0 0; 
+    height: 100vh;       
+    overflow: hidden;    
+}
+
+.portfolio-scroll-box {
+    width: 100%;
+    height: calc(100vh - 90px); 
+    max-height: 100%;           
+    overflow-y: auto;           
+    padding: 20px 20px 80px 20px;
+    scrollbar-width: none;       
+}
+.portfolio-scroll-box::-webkit-scrollbar {
+    display: none;              
+}
+
+.portfolio-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.section-title {
+    color: #ffffff;
+    font-size: 32px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+/* 類別大區塊 */
+.category-block {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto 50px auto; 
+    text-align: left;
+}
+
+.product-grid {
+    display: flex;
+    gap: 25px;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.product-card {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    padding: 35px 25px;
+    flex: 1;
+    max-width: 350px;
+    color: #ffffff;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 410px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.product-card.featured {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(179, 240, 255, 0.4);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(179, 240, 255, 0.6);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.badge {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    padding: 4px 15px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    letter-spacing: 1px;
+    color: #e0f7ff;
+}
+
+.badge.premium {
+    background: #b3f0ff;
+    color: #004455;
+    font-weight: bold;
+}
+
+.product-card h3 {
+    font-size: 19px;
+    margin-top: 15px;
+    margin-bottom: 12px;
+    color: #ffffff;
+}
+
+.tech-tags {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.tech-tags span {
+    font-size: 11px;
+    padding: 2px 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.product-desc {
+    font-size: 14px;
+    color: #d0e8ff;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #b3f0ff;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+/* 🌟 核心防歪修正：按鈕外框彈性容器設定 */
+.card-buttons {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    margin-top: auto;
+    box-sizing: border-box;
+}
+
+/* 🌟 核心防歪修正：左側 Demo 按鈕等寬 50% 置中 */
+.demo-btn {
+    flex: 1;
+    width: 50%;
+    padding: 10px 0;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.demo-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #ffffff;
+}
+
+/* 🌟 核心防歪修正：右側購買按鈕等寬 50% 置中 */
+.buy-btn {
+    display: block;
+    flex: 1;
+    width: 50%;
+    padding: 10px 0;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.scroll-tip {
+    font-size: 13px;
+    color: #b3f0ff;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* --- 🌟 頁面 5：聯絡我們（加回精緻分隔線與呼吸空間） --- */
+.info-group {
+    margin-bottom: 25px; /* 拉開組與組之間的上下間距，條理清晰 */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* 加回亮色高質感的分隔細線 */
+    padding-bottom: 15px; /* 讓內容文字與細線保持優雅距離 */
+}
+
+/* 欄位小標題 */
+.info-label {
+    font-size: 12px;
+    color: #b3f0ff; /* 閃耀的霓虹藍字眼 */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px; /* 與下方實際內容拉開間距，拒絕黏擠 */
+    font-weight: bold;
+}
+
+/* 實際的聯絡內容值 */
+.info-value {
+    font-size: 18px;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+/* 聯絡超連結顏色 */
+.info-value a {
+    color: #b3f0ff;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.info-value a:hover {
+    text-shadow: 0 0 8px rgba(179, 240, 255, 0.8);
+    text-decoration: underline;
+}
+
+/* 卡片最底部版權宣告 */
+.card-copyright {
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 35px; /* 跟上方的資訊拉開寬敞距離，精準留白 */
+}
+/* ==========================================
+   4. 服務項目專屬細節樣式（百分之百復刻紫色霓虹版）
+   ========================================== */
+#services .glass-card {
+    background: rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(25px) !important;
+    -webkit-backdrop-filter: blur(25px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 24px !important;
+    padding: 55px 50px !important; /* 🌟 核心：加大內邊距，製造卡片的呼吸空間 */
+    max-width: 680px !important;    /* 稍微拉寬，讓長句子（如RWD）不會輕易斷行 */
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4) !important;
+    margin: 0 auto;
+}
+
+#services .glass-card h2 {
+    color: #ffffff !important;
+    font-size: 32px !important;     /* 放大標題 */
+    font-weight: 700 !important;
+    text-align: center !important;
+    letter-spacing: 4px !important; /* 字距拉開才大氣 */
+    margin-bottom: 12px !important;
+}
+
+#services .card-line {
+    width: 60px !important;
+    height: 3px !important;
+    background: linear-gradient(90deg, #b3f0ff, #c084fc) !important; /* 漸層裝飾線 */
+    margin: 0 auto 45px auto !important; /* 🌟 加大與下方列表的間距，不再擠在一起 */
+    border-radius: 2px !important;
+}
+
+/* 服務列表容器 */
+.services-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 0 35px 0 !important; /* 與下方警告語留空隙 */
+}
+
+/* 🌟 核心修正：徹底拉開行距，消滅擠在一起的窒息感 */
+.services-list li {
+    font-size: 18px !important;       /* 微調字級，更具閱讀氣勢 */
+    font-weight: 500 !important;
+    color: #f1f5f9 !important;        /* 高質感亮灰白字 */
+    margin-bottom: 24px !important;   /* 🌟 每一行之間的垂直間距拉大，徹底解鎖擁擠 */
+    display: flex !important;
+    align-items: center !important;   /* 圖案與文字垂直完美居中對齊 */
+    gap: 14px !important;             /* 圖案與文字之間的左右間距拉開 */
+    text-align: left !important;
+}
+
+/* 讓最後一項不要有多餘的下間距 */
+.services-list li:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* 列表內部的 RWD 備註小字 (手機/平板/電腦完美適配) */
+.services-list li small {
+    font-size: 14px !important;
+    color: rgba(255, 255, 255, 0.5) !important; /* 內斂優雅的半透明字 */
+    font-weight: 400 !important;
+    margin-left: 2px !important;
+}
+
+/* 🌟 底部警告提示文字（⚠️ 服務範圍僅包含...） */
+.service-notice {
+    font-size: 14px !important;
+    color: rgba(255, 255, 255, 0.55) !important; /* 🌟 完全對齊原圖：優雅的低調半透明白 */
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important; /* 細緻的頂部分隔線 */
+    padding-top: 25px !important;    /* 內邊距拉開 */
+    text-align: left !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    line-height: 1.6 !important;
+}
